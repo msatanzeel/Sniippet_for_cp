@@ -1,0 +1,474 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define loopf(i,a,b) for(ll i=a;i<b;i++)
+#define loopb(i,a,b) for(ll i=a;i>b;i--)
+#define pb push_back
+#define fast ios_base::sync_with_stdio(false);cin.tie(NULL);
+#define ff first
+#define ss second
+#define vc vector
+#define vii vector<int> 
+#define vll vector<long long> 
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+//General defs
+#define umap unordered_map
+#define uset unordered_set
+//Along with data types
+#define mapii map<int,int>
+#define mapll map<ll,ll>
+#define seti set<int>
+#define setll set<ll>
+#define umapii unordered_map<int,int>
+#define useti unordered_set<int>
+#define umapll unordered_map<ll,ll>
+#define usetll unordered_set<ll>
+#define all(x) x.begin(),x.end()
+#define endl "\n"
+#define ld long double
+const ll M=1e9+7;
+
+
+
+void __print(int x) {cerr << x;}
+void __print(long x) {cerr << x;}
+void __print(long long x) {cerr << x;}
+void __print(unsigned x) {cerr << x;}
+void __print(unsigned long x) {cerr << x;}
+void __print(unsigned long long x) {cerr << x;}
+void __print(float x) {cerr << x;}
+void __print(double x) {cerr << x;}
+void __print(long double x) {cerr << x;}
+void __print(char x) {cerr << '\'' << x << '\'';}
+void __print(const char *x) {cerr << '\"' << x << '\"';}
+void __print(const string &x) {cerr << '\"' << x << '\"';}
+void __print(bool x) {cerr << (x ? "true" : "false");}
+template<typename T, typename V>
+void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
+template<typename T>
+void __print(const T &x) {int f = 0; cerr << '{'; for (auto &i: x) cerr << (f++ ? "," : ""), __print(i); cerr << "}";}
+void _print() {cerr << "]\n";}
+template <typename T, typename... V>
+void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v...);}
+#ifndef ONLINE_JUDGE
+#define debug(x...) cerr << "[" << #x << "] = ["; _print(x)
+#else
+#define debug(x...)
+#endif
+
+#define yes cout<<"YES"<<endl
+#define no cout<<"NO"<<endl
+
+
+
+//send a vector of long long along with the number below which you want to store
+void sieve(vc<ll> &P,ll n)
+{
+    bool prime[n + 1];
+    memset(prime, true, sizeof(prime));
+    for (ll p = 2; p * p <= n; p++)
+    {
+
+        if (prime[p] == true)
+        {
+
+            for (int i = p * p; i <= n; i += p)
+                prime[i] = false;
+        }
+    }
+    for (ll p = 2; p <= n; p++)
+        if (prime[p])
+            P.pb(p);
+}
+
+
+//Check if a number is prime
+
+bool check_prime(ll n) {
+    if (n <= 1)  return false;
+    if (n <= 3)  return true;
+    if (n%2 == 0 || n%3 == 0) return false;
+    for (ll i=5; i*i<=n; i=i+6)
+        if (n%i == 0 || n%(i+2) == 0)
+           return false;
+    return true;
+}
+
+
+
+ll power(ll a,ll n)
+{
+    ll res=1,mod=M;
+    while(n)
+    {
+        if(n%2)
+        res=(res*a)%mod;
+
+        a=(a*a)%mod;
+        n=n/2;
+    }
+
+    return res;
+}
+
+
+
+vc<ll> fact;
+void calculate_factorials(ll n)
+{
+    fact.resize(n+1,1);
+    ll ans=1;
+    loopf(i,1,n+1)
+    {
+        ans= ((ans%M)*(i%M))%M;
+        fact[i]=ans;
+    }
+
+}
+
+
+ll inverse(ll n)
+{
+    return power(n,M-2);
+}
+
+
+
+ll ncr(ll n,ll r)
+{
+    if(r==0) return 1;
+    if(r==1 || r==(n-1)) return n;
+    if(r>n || r<0) return -1;
+
+    ll ans=((fact[n]*inverse(fact[r]))%M * (inverse(fact[n-r]))%M)%M;
+    return ans;
+}
+
+const int lim=1e7;
+vc<int> spf(lim,0);
+
+void fill()
+{
+    spf[1]=1;
+    for(ll i=2;i<lim;i++)
+    {
+        if(spf[i]==0)
+        {
+            spf[i]=i;
+            for(ll j=i*i;j<lim;j+=i)
+                if(spf[j]==0) 
+                spf[j]=i;
+        }
+    }
+}
+
+
+
+void factorise(vc<pair<int,int>> &p,int n)
+{
+    int k;
+
+    while(spf[n]!=1)
+    {
+        int div=spf[n];
+        k=0;
+
+        while(n%div==0)
+        k++,n/=div;
+        p.pb({div,k});
+
+    }
+
+}
+
+
+// ***Author- M S A Tanzeel ***
+//*********
+
+bool ck(int a[],int n)
+{
+    loopf(i,0,n)
+    if(a[i]) return 1;
+
+    return 0;
+}
+
+void solve()
+{
+   
+   
+
+
+}
+
+//*********
+//*********
+
+
+
+int main()
+{
+    //set this value to 1 to take test cases else 0
+    bool take_test_cases=1;
+
+    if(take_test_cases)
+    {
+        int t;
+        cin>>t;
+        while(t--)
+        solve();
+    }
+    else
+    solve();
+}
+
+
+///////////
+// general segment tree
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define loopf(i,a,b) for(ll i=a;i<b;i++)
+#define loopb(i,a,b) for(ll i=a;i>b;i--)
+#define pb push_back
+#define fast ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define ff first
+#define ss second
+#define vc vector
+#define vii vector<int> 
+#define vll vector<long long> 
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+//General defs
+#define umap unordered_map
+#define uset unordered_set
+//Along with data types
+#define mapii map<int,int>
+#define mapll map<ll,ll>
+#define seti set<int>
+#define setll set<ll>
+#define umapii unordered_map<int,int>
+#define useti unordered_set<int>
+#define umapll unordered_map<ll,ll>
+#define usetll unordered_set<ll>
+#define all(x) x.begin(),x.end()
+#define endl "\n"
+#define ld long double
+const ll M=1e9+7;
+
+
+
+void __print(int x) {cerr << x;}
+void __print(long x) {cerr << x;}
+void __print(long long x) {cerr << x;}
+void __print(unsigned x) {cerr << x;}
+void __print(unsigned long x) {cerr << x;}
+void __print(unsigned long long x) {cerr << x;}
+void __print(float x) {cerr << x;}
+void __print(double x) {cerr << x;}
+void __print(long double x) {cerr << x;}
+void __print(char x) {cerr << '\'' << x << '\'';}
+void __print(const char *x) {cerr << '\"' << x << '\"';}
+void __print(const string &x) {cerr << '\"' << x << '\"';}
+void __print(bool x) {cerr << (x ? "true" : "false");}
+template<typename T, typename V>
+void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
+template<typename T>
+void __print(const T &x) {int f = 0; cerr << '{'; for (auto &i: x) cerr << (f++ ? "," : ""), __print(i); cerr << "}";}
+void _print() {cerr << "]\n";}
+template <typename T, typename... V>
+void print(T t, V... v) {_print(t); if (sizeof...(v)) cerr << ", "; _print(v...);}
+#ifndef ONLINE_JUDGE
+#define debug(x...) cerr << "[" << #x << "] = ["; _print(x)
+#else
+#define debug(x...)
+#endif
+
+#define yes cout<<"YES"<<endl
+#define no cout<<"NO"<<endl
+ 
+const int N = 1e5 + 5;
+const int INF = 1e9;
+ 
+
+struct node
+{
+    //ye jo hai initial value of node in segment tree rahta
+    //seg tree build karte so time pe ye value ka effect ny padna
+    // jyse ki sum ke time iski value 0 rahna....
+	ll v=0;
+	node(){}
+	node(ll val){
+		v=val;
+	}
+
+    // build karte so time kis tarah se niche ke do nodes ke values ku process krte
+    // wo cheez idar likhte
+	void merge(const node &l,const node &r){ 
+ 
+		v=l.v+r.v;
+	}
+};
+ 
+
+ 
+struct update
+{
+    //ye jo hai initial value rahti lazy tree ke node ki,
+    // take care so that,jysa b first pending update aata,wo update ku initial
+    // value effect ny krna
+	ll v = 0;
+	update(){}
+	update(int val){
+		v = val; 
+	}
+    // pehle jo lazy tree ke node pe info/pending update the,usku add krte idar
+	void combine(update &other,const ll &tl,const ll &tr){
+		v += other.v;
+ 
+	}
+
+    //idar jo hai apan lazy tree ka info/data ku seg tree ke node pe apply kardete
+    //tl aur tr jo hai , wo segment ke extremes hai
+    // x jo hai apanki original segment tree ki node hai aur v hai hai 
+    //lazy tree ke node me hai so value
+
+	void apply(node &x,const ll &tl,const ll &tr){
+		x.v += (tr-tl+1)*v;
+ 
+	}
+};
+ 
+struct segtree
+{
+	ll len;
+	vector<node> t;
+	vector<update> u;
+	vector<bool> lazy;
+	node identity_element;
+	update identity_transformation;
+	segtree(ll l){
+		len = l;
+		t.resize(4 * len);
+		u.resize(4 * len);
+		lazy.resize(4 * len);
+		identity_element = node();
+		identity_transformation = update();
+	}
+ 
+	void pushdown(const ll &v, const ll &tl, const ll &tr){
+		if(!lazy[v]) return;
+		ll tm = (tl + tr) >> 1;
+		apply(v<<1,tl,tm,u[v]);
+		apply(v<<1|1,tm+1,tr,u[v]);
+		u[v] = identity_transformation;
+		lazy[v] = 0;
+	}
+ 
+	void apply(const ll &v, const ll &tl, const ll &tr, update upd){
+		if(tl != tr){
+			lazy[v] = 1;
+			u[v].combine(upd,tl,tr);
+		}
+		upd.apply(t[v],tl,tr);
+	}
+ 
+	template<typename T>
+	void build(const T &arr,const ll &v, const ll &tl, const ll &tr){
+		if(tl == tr){
+			t[v] = arr[tl];
+			return;
+		}
+		int32_t tm = (tl + tr) >> 1;
+		build(arr,v<<1,tl,tm);
+		build(arr,v<<1|1,tm+1,tr);
+		t[v].merge(t[v<<1],t[v<<1|1]);
+	}
+ 
+	node query(const ll &v,const ll &tl,const ll &tr,const ll &l,const ll &r){
+		if(l > tr || r < tl){
+			return identity_element;
+		}
+		if(tl >= l && tr <= r){
+			return t[v];
+		}
+		pushdown(v,tl,tr);
+		int32_t tm = (tl + tr) >> 1;
+		node a = query(v<<1,tl,tm,l,r),b = query(v<<1|1,tm+1,tr,l,r),ans;
+		ans.merge(a,b);
+		return ans;
+	}
+ 
+	// rupd = range update
+	void rupd(const ll &v,const ll &tl,const ll &tr,const ll &l,const ll &r,const update &upd){
+		if(l > tr || r < tl){
+			return;
+		}
+		if(tl >= l && tr <= r){
+			apply(v,tl,tr,upd);
+			return;
+		}
+		pushdown(v,tl,tr);
+		int32_t tm = (tl + tr) >> 1;
+		rupd(v<<1,tl,tm,l,r,upd);
+		rupd(v<<1|1,tm+1,tr,l,r,upd);
+		t[v].merge(t[v<<1],t[v<<1|1]);
+	}
+ 
+	public:
+	template<typename T>
+	void build(const T &arr){
+		build(arr,1,0,len-1);
+	}
+	node query(const ll &l,const ll &r){
+		return query(1,0,len-1,l,r);
+	}
+	void rupd(const ll &l,const ll &r,const update &upd){
+		rupd(1,0,len-1,l,r,upd);
+	}
+};
+ 
+int main(){
+    int n;
+    cin>>n;
+
+    vector<ll> v(n);
+
+    for(int i=0;i<n;i++)
+    cin>>v[i];
+
+
+ 
+	segtree s(n);
+	s.build(v);
+
+    int q;
+    cin>>q;
+
+    int l,r,val,type;
+
+    while(q--)
+    {
+        cin>>type;
+
+        if(type==1)
+        {
+            cin>>l>>r>>val;
+            s.rupd(l,r,val);
+        }
+        else
+        {
+            cin>>l>>r;
+            cout<<s.query(l,r).v<<endl;
+        }
+
+
+
+    }
+
+
+	return 0;
+}
+
+///////////
